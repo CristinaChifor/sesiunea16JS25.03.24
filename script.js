@@ -136,8 +136,15 @@ async function displayPosts() {
     for (const post of posts) {
         const container = document.createElement('article');
         container.innerHTML = `<h2>${post.title}</h2>
-        <div>${post.body}</div>`;
+        <div>${post.body}</div>
+        <button>Delete</button>`;
+        
         postsTargetElement.appendChild(container);
+        container.querySelector('button').addEventListener('click', () => {
+            fetch(`${baseUrl}${posts}/posts/${post.id}`, {method: 'DELETE'})
+            .then((obj) => console.log('deleted: ', obj))
+            .then(() => container.remove());
+        });
     }
 }
 
