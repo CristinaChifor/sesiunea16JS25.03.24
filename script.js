@@ -115,3 +115,31 @@ fetch(`${baseUrl}${posts}`).then((response) => {
 
 //example with asyc/ await
 
+async function getPosts() {
+    try{
+    const response = await fetch(`${baseUrl}${posts}`);
+    const data  = await response.json();
+    console.log('data: ', data);
+    return data;
+    } catch (e) {
+        console.log('Something went wrong: ', e);
+    }
+    
+}
+
+getPosts();
+
+async function displayPosts() {
+    const posts = await getPosts();
+    const postsTargetElement = document.getElementById('main');
+
+    for (const post of posts) {
+        const container = document.createElement('article');
+        container.innerHTML = `<h2>${post.title}</h2>
+        <div>${post.body}</div>`;
+        postsTargetElement.appendChild(container);
+    }
+}
+
+displayPosts();
+
