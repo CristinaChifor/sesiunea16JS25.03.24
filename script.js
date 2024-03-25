@@ -71,3 +71,17 @@ doSomethingWithUsers();
  * try/catch poate fi folosit pentru gestionarea erorilor în funcțiile asincrone, făcând codul mai robust și mai ușor de întreținut.
  */
 
+try {
+    const labels = ['label1'];
+    //saySomething('asigo');
+
+    console.log(`First label is ${labels[0]}`);
+
+} catch(error) {
+    console.log('An error has occured: ', error);
+} finally {
+    console.log('Finally has executed');
+}
+
+console.log('After try/ catch');
+
