@@ -85,3 +85,33 @@ try {
 
 console.log('After try/ catch');
 
+// API Request
+// Aplication Programming Interface (web server + database -url)
+/**
+ * În JavaScript, un "request" (cerere) se referă la o solicitare făcută de către o aplicație sau script către un server pentru a obține sau a trimite date. 
+ * În urma unei cereri se obține un răspuns (response) cu detalii privind rezultatul cererii.
+Există mai multe moduri de a face cereri în JavaScript, iar două dintre cele mai comune metode sunt 
+folosirea obiectului XMLHttpRequest și a funcției fetch(). 
+Aceste metode permit dezvoltatorilor să trimită cereri HTTP către server specificand 
+metoda cererii (GET, POST, PUT, DELETE) și să gestioneze răspunsurile în mod asincron.
+ */
+
+// fetch - returneaza o promisiune
+/**
+ * fetch() este o funcție integrată în JavaScript, introdusă în ECMAScript 2015 (ES6), care permite realizarea de cereri HTTP asincrone către resurse precum servere web. 
+ * Această funcție simplifică și modernizează gestionarea cererilor și răspunsurilor HTTP în comparație cu metodele mai vechi, cum ar fi XMLHttpRequest.
+ */
+
+const baseUrl = 'https://jsonplaceholder.typicode.com/';
+const posts = '/posts';
+
+// example with promise
+fetch(`${baseUrl}${posts}`).then((response) => {
+    console.log(response);
+    response.json().then((data) => {
+        console.log(data);
+    })
+}).catch((e) => console.log(e));
+
+//example with asyc/ await
+
