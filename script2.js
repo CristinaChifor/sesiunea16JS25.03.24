@@ -99,9 +99,59 @@ metoda cererii (GET, POST, PUT, DELETE) și să gestioneze răspunsurile în mod
  */
 
 // fetch - returneaza o promisiune
+// JSON - JavaScript Object Notation
 /**
  * fetch() este o funcție integrată în JavaScript, introdusă în ECMAScript 2015 (ES6), care permite realizarea de cereri HTTP asincrone către resurse precum servere web. 
  * Această funcție simplifică și modernizează gestionarea cererilor și răspunsurilor HTTP în comparație cu metodele mai vechi, cum ar fi XMLHttpRequest.
  */
 // status code example 404
 
+const baseUrl = 'https://jsonplaceholder.typicode.com/';
+const posts ='/posts';
+
+// Example with promise
+fetch(`${baseUrl}${posts}`)
+.then((response) => {
+    console.log(response);
+    response.json()
+.then((data) => {
+        console.log(data);
+    })})
+.catch((e) => (e));
+
+
+// Examples with async/ await
+
+async function getPosts() {
+    try {
+        const response = await fetch(`${baseUrl}${posts}`);
+    const data = await response.json();
+    console.log('data: ', data);
+    return data;
+    } catch (e) {
+    console.log('Something went wrong: ', e);
+    }  
+}
+
+getPosts();
+
+async function displayPosts() {
+    const posts = await getPosts();
+    const postsTargetElement = document.getElementById('main');
+
+    for (const post of posts) {
+        const container = document.createElement('article');
+        container.innerHTML = `<h2>${post.title}</h2>
+        <div>${post.body}</div>
+        <button>Delete</button>`;
+        
+        postsTargetElement.appendChild(container);
+        container.querySelector('button').addEventListener('click', () => {
+            fetch(`${baseUrl}${posts}/posts/${post.id}`, {method: 'DELETE'})
+            .then((obj) => console.log('deleted: ', obj))
+            .then(() => container.remove());
+        });
+    }
+}
+
+displayPosts();
