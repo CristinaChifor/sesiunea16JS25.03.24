@@ -22,5 +22,23 @@ Rejected (Respinsă): Starea în care operațiunea asincronă a eșuat și promi
 }*/
 
 const promise = new Promise((resolve, reject) => {
+    const resolved = false; // schimba in true sau false
 
+    setTimeout(() => {
+        if (resolved) {
+            resolve('Valoare dupa rezolvare');
+        } else {
+            reject('Valoare dupa respingere');
+        }
+    }, 2000);
+});
+
+promise.then((resolveValued) => {
+    console.log('S-a rezolvat cu valoarea: ', resolveValued);
+}).catch((rejectedValue) => {
+    console.log('S-a respins cu valoarea: ', rejectedValue);
+}).finally(() => {
+    console.log('Se executa mereu');
 })
+
+console.log('Cod ce se executa simultan cu promisiunea');
