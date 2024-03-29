@@ -76,3 +76,15 @@ doSomethingWithUsers();
 /**
  * Blocul de cod try/catch poate fi folosit pentru gestionarea erorilor în funcțiile asincrone, făcând codul mai robust și mai ușor de întreținut.
  */
+
+try {
+    const labels = ['label1'];
+    //saySomething('nophP');
+    console.log(`First label is ${labels[0]}`);
+} catch (err) {
+    console.log('An error has occured: ',err);
+} finally {
+    console.log('Finally has executed');
+}
+
+console.log('After try/catch');
