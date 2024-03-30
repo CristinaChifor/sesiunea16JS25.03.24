@@ -111,6 +111,51 @@ metoda cererii (GET, POST, PUT, DELETE) și să gestioneze răspunsurile în mod
 const baseUrl = 'https://jsonplaceholder.typicode.com/';
 const posts = '/posts';
 
-fetch(`${baseUrl}${posts}`).then((response) => {
+
+// Example with promises
+fetch(`${baseUrl}${posts}`)
+.then((response) => {
     console.log(response);
-});
+    response.json()
+    .then((data) => {
+        console.log(data);
+    })
+}).catch((e) => console.log(e));
+
+// Examples with async/ await
+
+async function getPosts() {
+    try {
+        const response = await fetch(`${baseUrl}${posts}`);
+    const data = await response.json();
+    console.log('data: ', data);
+    return data;
+    } catch (e) {
+        console.log('Something went wrong: ', e);
+    }  
+}
+
+getPosts();
+
+async function displayPosts() {
+    const posts = await getPosts();
+    const postTargetElement = document.getElementById('main');
+
+    for (const post of posts) {
+        const container = document.createElement('article');
+        container.innerHTML = `<h2>${post.title}</h2>
+        <div>${post.body}</div>
+        <button>Delete</button>`;
+        postTargetElement.appendChild(container);
+        const btn = container.querySelector('button');
+        btn.addEventListener('click', () => {
+            fetch(`${baseUrl}/posts/${post.id}`, {method: 'DELETE'})
+            .then((obj) => console.log('deleted: ', obj))
+            .then(() => container.remove());
+        });
+    }
+}
+
+displayPosts();
+
+// example with fetch post method
